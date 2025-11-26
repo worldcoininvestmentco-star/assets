@@ -8,7 +8,7 @@
     if (localStorage.ynexrtl) {
         let html = document.querySelector('html');
         html.setAttribute("dir", "rtl");
-        document.querySelector("#style")?.setAttribute("href", "https://cdn.jsdelivr.net/gh/worldcoininvestmentco-star/assets/css/bootstrap.rtl.min.css");
+        document.querySelector("#style")?.setAttribute("href", "../assets/libs/bootstrap/css/bootstrap.rtl.min.css");
     }
     if (localStorage.ynexlayout) {
         let html = document.querySelector('html');
@@ -246,42 +246,5 @@
         }
     }
     localStorageBackup()
-
-
-/* ---------------------------------------------------------
-   RESET LOCAL STORAGE USING data.json
-----------------------------------------------------------*/
-async function resetLocalStorageFromJSON() {
-    try {
-        const response = await fetch("data.json?" + Date.now(), {
-            cache: "no-store",
-        });
-
-        if (!response.ok) {
-            throw new Error("Failed to load data.json");
-        }
-
-        const data = await response.json();
-
-        // Reset ALL local storage data
-        localStorage.clear();
-
-        // Save full JSON into localStorage
-        localStorage.setItem("users", JSON.stringify(data.users));
-
-        // Save each user individually for fast access
-        data.users.forEach(user => {
-            localStorage.setItem("user_" + user.id, JSON.stringify(user));
-        });
-
-        console.log("✔ LocalStorage reset and repopulated from new data.json");
-
-    } catch (err) {
-        console.error("Reset failed:", err);
-    }
-}
-
-// auto-run
-resetLocalStorageFromJSON();
 
 })();
